@@ -2,23 +2,44 @@
 
 set -ouex pipefail
 
-### Install packages
+dnf5 remove -y @kde-desktop-environment \
+               xwaylandvideobridge \
+               sunshine \
+               kdeconnect \
+               kdebugsettings \
+               haruna \
+               krfb \
+               nheko \
+               rhythmbox \
+               okular \
+               kde-desktop-sharing \
+               kwallet* \
+               plasma-* \
+               kscreen* \
+               kio-* \
+               kaccounts* \
+               kservice* \
+               dolphin \
+               ark
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
+dnf5 clean all && rm -rf /var/cache/dnf/*
 
-# this installs a package from fedora repos
-dnf5 install -y tmux 
+dnf5 install -y @cosmic-desktop-environment \
+                neovim \
+                ncdu \
+                NetworkManager-tui \
+                fish \
+                util-linux-user
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
+dnf5 copr enable -y che/zed
+dnf5 install -y zed
 
-#### Example for enabling a System Unit File
+echo "/usr/bin/fish" | tee -a /etc/shells
+sed -i 's|/bin/bash|/usr/bin/fish|' /etc/passwd
+chsh -s /usr/bin/fish
 
+dnf5 clean all && rm -rf /var/cache/dnf/*
+
+systemctl disable display-manager
+systemctl enable cosmic-greeter.service -f
 systemctl enable podman.socket
