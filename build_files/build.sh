@@ -11,7 +11,6 @@ dnf5 remove -y @kde-desktop-environment \
                sunshine \
                kdeconnect \
                kdebugsettings \
-               haruna \
                krfb \
                nheko \
                rhythmbox \
