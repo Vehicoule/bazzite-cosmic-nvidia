@@ -50,7 +50,7 @@ mkdir -p /nix && \
 	curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
 	chmod a+rx /nix/determinate-nix-installer.sh
 
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm
 
 cat > /etc/profile.d/gaming.sh << 'EOF'
 # Enable Steam native runtime by default (better compatibility)
