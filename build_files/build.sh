@@ -32,18 +32,17 @@ dnf5 clean all && rm -rf /var/cache/dnf/*
 dnf5 install -y @cosmic-desktop-environment \
                 neovim \
                 ncdu \
-                NetworkManager-tui
+                NetworkManager-tui \
+				gamemode
 
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
 
 dnf5 copr enable -y che/zed
 dnf5 copr enable -y ilyaz/LACT
-# dnf5 copr enable -y thisisyaash/shiru
 
 dnf5 install -y zed \
                 lact
-#               shiru
 
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
@@ -51,9 +50,11 @@ mkdir -p /nix && \
 	curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
 	chmod a+rx /nix/determinate-nix-installer.sh
 
-# cat > /etc/profile.d/gaming.sh << 'EOF'
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
+
+cat > /etc/profile.d/gaming.sh << 'EOF'
 # Enable Steam native runtime by default (better compatibility)
-# export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
+export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
 
 # Enable MangoHud for all Vulkan applications (if installed)
 # export MANGOHUD=1
@@ -63,9 +64,9 @@ mkdir -p /nix && \
 # export AMD_VULKAN_ICD=RADV
 
 # Optimize for NVIDIA GPUs (uncomment if using NVIDIA)
-# export __GL_THREADED_OPTIMIZATIONS=1
-# export __GL_SHADER_DISK_CACHE=1
-# EOF
+export __GL_THREADED_OPTIMIZATIONS=1
+export __GL_SHADER_DISK_CACHE=1
+EOF
 
 systemctl disable display-manager
 systemctl enable cosmic-greeter.service
