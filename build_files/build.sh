@@ -65,10 +65,6 @@ export __GL_THREADED_OPTIMIZATIONS=1
 export __GL_SHADER_DISK_CACHE=1
 EOF
 
-dnf5 update -y
-
-dnf5 clean all && rm -rf /var/cache/dnf/*
-
 echo "/usr/bin/fish" | tee -a /etc/shells
 sed -i 's|/bin/bash|/usr/bin/fish|' /etc/passwd
 
