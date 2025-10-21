@@ -35,6 +35,8 @@ dnf5 install -y @cosmic-desktop-environment \
                 fish \
                 util-linux-user
 
+dnf5 clean all && rm -rf /var/cache/dnf/*
+
 dnf5 copr enable -y che/zed
 dnf5 install -y zed
 
