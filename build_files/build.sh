@@ -42,7 +42,7 @@ dnf5 copr enable -y ilyaz/LACT
 # dnf5 copr enable -y thisisyaash/shiru
 
 dnf5 install -y zed \
-                lact \
+                lact
 #               shiru
 
 dnf5 clean all && rm -rf /var/cache/dnf/*
