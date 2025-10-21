@@ -39,11 +39,13 @@ dnf5 clean all && rm -rf /var/cache/dnf/*
 
 dnf5 copr enable -y che/zed
 dnf5 install -y zed
+dnf5 clean all && rm -rf /var/cache/dnf/*
+
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm
+dnf5 clean all && rm -rf /var/cache/dnf/*
 
 echo "/usr/bin/fish" | tee -a /etc/shells
 sed -i 's|/bin/bash|/usr/bin/fish|' /etc/passwd
-
-dnf5 clean all && rm -rf /var/cache/dnf/*
 
 systemctl disable display-manager
 systemctl enable cosmic-greeter.service -f
