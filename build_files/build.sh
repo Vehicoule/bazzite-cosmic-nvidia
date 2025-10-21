@@ -39,13 +39,11 @@ dnf5 clean all && rm -rf /var/cache/dnf/*
 
 dnf5 copr enable -y che/zed
 dnf5 copr enable -y ilyaz/LACT
-dnf5 copr enable -y thisisyaash/shiru
-
-rm -rf /opt/Shiru
+# dnf5 copr enable -y thisisyaash/shiru
 
 dnf5 install -y zed \
                 lact \
-                shiru
+#               shiru
 
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
