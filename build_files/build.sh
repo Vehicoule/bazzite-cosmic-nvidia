@@ -6,8 +6,6 @@ if ! grep -q "exclude=ibus" /etc/dnf/dnf.conf; then
     echo "exclude=ibus ibus-* ibus-libs ibus-gtk2 ibus-gtk3 ibus-gtk4" >> /etc/dnf/dnf.conf
 fi
 
-dnf5 update -y
-
 dnf5 remove -y @kde-desktop-environment \
                xwaylandvideobridge \
                sunshine \
@@ -66,6 +64,8 @@ export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
 export __GL_THREADED_OPTIMIZATIONS=1
 export __GL_SHADER_DISK_CACHE=1
 EOF
+
+dnf5 update -y
 
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
