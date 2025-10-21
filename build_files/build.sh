@@ -46,12 +46,9 @@ dnf5 install -y zed \
 
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
-#mkdir -p /nix && \
-#	curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
-#	chmod a+rx /nix/determinate-nix-installer.sh
-
 mkdir -p /nix && \
-    curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm -- --init none
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
+  chmod a+rx /nix/determinate-nix-installer.sh
 
 cat > /etc/profile.d/gaming.sh << 'EOF'
 # Enable Steam native runtime by default (better compatibility)
