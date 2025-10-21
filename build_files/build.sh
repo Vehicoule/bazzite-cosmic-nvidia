@@ -6,6 +6,8 @@ if ! grep -q "exclude=ibus" /etc/dnf/dnf.conf; then
     echo "exclude=ibus ibus-* ibus-libs ibus-gtk2 ibus-gtk3 ibus-gtk4" >> /etc/dnf/dnf.conf
 fi
 
+dnf5 update -y
+
 dnf5 remove -y @kde-desktop-environment \
                xwaylandvideobridge \
                sunshine \
@@ -38,12 +40,12 @@ dnf5 install -y @cosmic-desktop-environment \
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
 dnf5 copr enable -y che/zed
-dnf5 install -y zed
-dnf5 clean all && rm -rf /var/cache/dnf/*
+dnf5 copr enable -y ilyaz/LACT
 
-mkdir -p /nix && \
-	curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
-	chmod a+rx /nix/determinate-nix-installer.sh
+dnf5 install -y zed \
+                lact
+
+dnf5 clean all && rm -rf /var/cache/dnf/*
 
 log "Setting up gaming-specific environment variables"
 cat > /etc/profile.d/gaming.sh << 'EOF'
@@ -65,7 +67,7 @@ export __GL_THREADED_OPTIMIZATIONS=1
 export __GL_SHADER_DISK_CACHE=1
 EOF
 
-log "Nix installed and Gaming optimizations applied successfully"
+log "Gaming optimizations applied successfully"
 
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
@@ -74,4 +76,5 @@ sed -i 's|/bin/bash|/usr/bin/fish|' /etc/passwd
 
 systemctl disable display-manager
 systemctl enable cosmic-greeter.service -f
+systemctl enable lactd
 systemctl enable podman.socket
