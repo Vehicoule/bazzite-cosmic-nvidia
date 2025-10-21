@@ -51,17 +51,14 @@ mkdir -p /nix && \
   chmod a+rx /nix/determinate-nix-installer.sh
 
 cat > /etc/profile.d/gaming.sh << 'EOF'
-# Enable Steam native runtime by default (better compatibility)
-export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
-
 # Enable MangoHud for all Vulkan applications (if installed)
 # export MANGOHUD=1
 
-# Optimize for AMD GPUs (uncomment if using AMD)
+# Optimize for AMD GPUs
 # export RADV_PERFTEST=aco,llvm
 # export AMD_VULKAN_ICD=RADV
 
-# Optimize for NVIDIA GPUs (uncomment if using NVIDIA)
+# Optimize for NVIDIA GPUs
 export __GL_THREADED_OPTIMIZATIONS=1
 export __GL_SHADER_DISK_CACHE=1
 EOF
