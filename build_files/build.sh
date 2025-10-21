@@ -41,7 +41,32 @@ dnf5 copr enable -y che/zed
 dnf5 install -y zed
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm -- --no-start-daemon
+mkdir -p /nix && \
+	curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
+	chmod a+rx /nix/determinate-nix-installer.sh
+
+log "Setting up gaming-specific environment variables"
+cat > /etc/profile.d/gaming.sh << 'EOF'
+# Enable Steam native runtime by default (better compatibility)
+export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
+
+# Enable MangoHud for all Vulkan applications (if installed)
+# export MANGOHUD=1
+
+# Enable gamemode for supported applications
+export LD_PRELOAD="libgamemode.so.0:$LD_PRELOAD"
+
+# Optimize for AMD GPUs (uncomment if using AMD)
+# export RADV_PERFTEST=aco,llvm
+# export AMD_VULKAN_ICD=RADV
+
+# Optimize for NVIDIA GPUs (uncomment if using NVIDIA)
+export __GL_THREADED_OPTIMIZATIONS=1
+export __GL_SHADER_DISK_CACHE=1
+EOF
+
+log "Nix installed and Gaming optimizations applied successfully"
+
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
 echo "/usr/bin/fish" | tee -a /etc/shells
