@@ -41,6 +41,8 @@ dnf5 copr enable -y che/zed
 dnf5 copr enable -y ilyaz/LACT
 dnf5 copr enable -y thisisyaash/shiru
 
+rm -rf /opt/Shiru
+
 dnf5 install -y zed \
                 lact \
                 shiru
