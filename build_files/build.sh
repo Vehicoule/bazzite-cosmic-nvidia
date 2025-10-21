@@ -58,9 +58,6 @@ export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
 # Enable MangoHud for all Vulkan applications (if installed)
 # export MANGOHUD=1
 
-# Enable gamemode for supported applications
-export LD_PRELOAD="libgamemode.so.0:$LD_PRELOAD"
-
 # Optimize for AMD GPUs (uncomment if using AMD)
 # export RADV_PERFTEST=aco,llvm
 # export AMD_VULKAN_ICD=RADV
