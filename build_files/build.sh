@@ -50,19 +50,6 @@ mkdir -p /nix && \
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
   chmod a+rx /nix/determinate-nix-installer.sh
 
-cat > /etc/profile.d/gaming.sh << 'EOF'
-# Enable MangoHud for all Vulkan applications (if installed)
-# export MANGOHUD=1
-
-# Optimize for AMD GPUs
-# export RADV_PERFTEST=aco,llvm
-# export AMD_VULKAN_ICD=RADV
-
-# Optimize for NVIDIA GPUs
-export __GL_THREADED_OPTIMIZATIONS=1
-export __GL_SHADER_DISK_CACHE=1
-EOF
-
 systemctl disable display-manager
 systemctl disable gdm || true
 systemctl disable sddm || true
