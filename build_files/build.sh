@@ -41,7 +41,7 @@ dnf5 copr enable -y che/zed
 dnf5 install -y zed
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm --no-start-daemon
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm -- --no-start-daemon
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
 echo "/usr/bin/fish" | tee -a /etc/shells
