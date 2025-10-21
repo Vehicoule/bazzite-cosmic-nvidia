@@ -7,7 +7,7 @@ if ! grep -q "exclude=ibus" /etc/dnf/dnf.conf; then
 fi
 
 
-dnf5 remove -y @kde-desktop-environment \
+rpm-ostree remove -y @kde-desktop-environment \
                xwaylandvideobridge \
                sunshine \
                kdeconnect \
@@ -29,7 +29,7 @@ dnf5 remove -y @kde-desktop-environment \
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
 
-dnf5 install -y @cosmic-desktop-environment \
+rpm-ostree install -y @cosmic-desktop-environment \
                 neovim \
                 ncdu \
                 NetworkManager-tui \
@@ -41,8 +41,8 @@ dnf5 clean all && rm -rf /var/cache/dnf/*
 dnf5 copr enable -y che/zed
 dnf5 copr enable -y ilyaz/LACT
 
-dnf5 install -y zed \
-                lact
+rpm-ostree install -y zed \
+                      lact
 
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
@@ -67,6 +67,8 @@ export __GL_SHADER_DISK_CACHE=1
 EOF
 
 systemctl disable display-manager
-systemctl enable cosmic-greeter.service
+systemctl disable gdm || true
+systemctl disable sddm || true
+systemctl enable cosmic-greeter
 systemctl enable lactd
 systemctl enable podman.socket
