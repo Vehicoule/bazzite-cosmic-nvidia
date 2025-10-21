@@ -31,9 +31,7 @@ dnf5 clean all && rm -rf /var/cache/dnf/*
 dnf5 install -y @cosmic-desktop-environment \
                 neovim \
                 ncdu \
-                NetworkManager-tui \
-                fish \
-                util-linux-user
+                NetworkManager-tui
 
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
@@ -64,9 +62,6 @@ export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
 export __GL_THREADED_OPTIMIZATIONS=1
 export __GL_SHADER_DISK_CACHE=1
 EOF
-
-echo "/usr/bin/fish" | tee -a /etc/shells
-sed -i 's|/bin/bash|/usr/bin/fish|' /etc/passwd
 
 systemctl disable display-manager
 systemctl enable cosmic-greeter.service -f
