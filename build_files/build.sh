@@ -6,8 +6,14 @@ set -ouex pipefail
 #    echo "exclude=ibus ibus-* ibus-libs ibus-gtk2 ibus-gtk3 ibus-gtk4" >> /etc/dnf/dnf.conf
 #fi
 
+dnf5 group info kde-desktop | \
+    sed -n '/^Mandatory packages\s*:/,/^\(Default\|Optional\) packages\s*:/ {
+        /^\(Default\|Optional\) packages\s*:/q  # Quit if we hit Default/Optional header
+        s/^.*:[[:space:]]*//p
+    }' | \
+    xargs rpm-ostree override
 
-rpm-ostree override remove @kde-desktop
+#rpm-ostree override remove @kde-desktop
 #               xwaylandvideobridge \
 #               sunshine \
 #               kdeconnect \
@@ -26,7 +32,8 @@ rpm-ostree override remove @kde-desktop
 #               dolphin \
 #               ark
 
-dnf5 clean all && rm -rf /var/cache/dnf/*
+dnf5 clean all && \
+rm -rf /var/cache/dnf/*
 
 
 rpm-ostree override install @cosmic-desktop-environment \
@@ -35,7 +42,8 @@ rpm-ostree override install @cosmic-desktop-environment \
                 NetworkManager-tui \
 				gamemode
 
-dnf5 clean all && rm -rf /var/cache/dnf/*
+dnf5 clean all && \
+rm -rf /var/cache/dnf/*
 
 
 dnf5 copr enable -y che/zed && \
@@ -46,7 +54,8 @@ dnf5 copr enable -y ilyaz/LACT && \
   dnf5 install -y lact && \
   dnf5 copr disable ilyaz/LACT
 
-dnf5 clean all && rm -rf /var/cache/dnf/*
+dnf5 clean all && \
+rm -rf /var/cache/dnf/*
 
 mkdir -p /nix && \
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
