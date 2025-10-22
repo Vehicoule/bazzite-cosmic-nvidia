@@ -11,7 +11,7 @@ dnf5 group info kde-desktop | \
         /^\(Default\|Optional\) packages\s*:/q  # Quit if we hit Default/Optional header
         s/^.*:[[:space:]]*//p
     }' | \
-    xargs rpm-ostree override
+    xargs rpm-ostree override remove
 
 #rpm-ostree override remove @kde-desktop
 #               xwaylandvideobridge \
