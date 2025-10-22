@@ -7,7 +7,7 @@ set -ouex pipefail
 #fi
 
 
-rpm-ostree override remove @kde-desktop-environment
+dnf5 remove @kde-desktop-environment
 #               xwaylandvideobridge \
 #               sunshine \
 #               kdeconnect \
@@ -29,7 +29,7 @@ rpm-ostree override remove @kde-desktop-environment
 dnf5 clean all && rm -rf /var/cache/dnf/*
 
 
-rpm-ostree override install @cosmic-desktop-environment \
+dnf5 install @cosmic-desktop-environment \
                 neovim \
                 ncdu \
                 NetworkManager-tui \
