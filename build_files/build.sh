@@ -13,7 +13,7 @@ set -ouex pipefail
 #    }' | \
 #    xargs rpm-ostree override remove
 
-rpm-ostree override remove kde-desktop \
+rpm-ostree override remove plasma-desktop \
                xwaylandvideobridge \
                sunshine \
                kdeconnect \
