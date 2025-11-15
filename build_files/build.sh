@@ -30,7 +30,7 @@ dnf5 group info kde-desktop | \
 dnf5 clean all && \
 rm -rf /var/cache/dnf/*
 
-dnf5 install -y @cosmic-desktop-environment \
+dnf5 install -y --skip-broken @cosmic-desktop-environment \
                 neovim \
                 ncdu \
                 NetworkManager-tui \
