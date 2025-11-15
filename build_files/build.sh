@@ -2,34 +2,30 @@
 
 set -ouex pipefail
 
-#if ! grep -q "exclude=ibus" /etc/dnf/dnf.conf; then
-#    echo "exclude=ibus ibus-* ibus-libs ibus-gtk2 ibus-gtk3 ibus-gtk4" >> /etc/dnf/dnf.conf
-#fi
+dnf5 group info kde-desktop | \
+    sed -n '/^Mandatory packages\s*:/,/^\(Default\|Optional\) packages\s*:/ {
+        /^\(Default\|Optional\) packages\s*:/q  # Quit if we hit Default/Optional header
+        s/^.*:[[:space:]]*//p
+    }' | \
+    xargs rpm-ostree override remove
 
-#dnf5 group info kde-desktop | \
-#    sed -n '/^Mandatory packages\s*:/,/^\(Default\|Optional\) packages\s*:/ {
-#        /^\(Default\|Optional\) packages\s*:/q  # Quit if we hit Default/Optional header
-#        s/^.*:[[:space:]]*//p
-#    }' | \
-#    xargs rpm-ostree override remove
-
-rpm-ostree override remove plasma-desktop \
-               xwaylandvideobridge \
-               sunshine \
-               kdeconnect \
-               kdebugsettings \
-               krfb \
-               nheko \
-               rhythmbox \
-               okular \
-               kwallet* \
-               plasma-* \
-               kscreen* \
-               kio-* \
-               kaccounts* \
-               kservice* \
-               dolphin \
-               ark
+#rpm-ostree override remove plasma-desktop \
+#               xwaylandvideobridge \
+#               sunshine \
+#               kdeconnect \
+#               kdebugsettings \
+#               krfb \
+#               nheko \
+#               rhythmbox \
+#               okular \
+#               kwallet* \
+#               plasma-* \
+#               kscreen* \
+#               kio-* \
+#               kaccounts* \
+#               kservice* \
+#               dolphin \
+#               ark
 
 dnf5 clean all && \
 rm -rf /var/cache/dnf/*
