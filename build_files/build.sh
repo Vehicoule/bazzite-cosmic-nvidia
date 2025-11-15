@@ -30,15 +30,7 @@ dnf5 group info kde-desktop | \
 dnf5 clean all && \
 rm -rf /var/cache/dnf/*
 
-dnf5 install -y \
-  --enable-repo=fedora-cisco-openh264 \
-  openh264 \
-  mozilla-openh264 \
-  gstreamer1-plugin-openh264
-
-dnf5 install -y cosmic-desktop \
-				cosmic-desktop-apps \
-				@cosmic-desktop-environment \
+dnf5 install -y @cosmic-desktop-environment \
                 neovim \
                 ncdu \
                 NetworkManager-tui \
