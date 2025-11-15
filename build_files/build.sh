@@ -30,10 +30,8 @@ dnf5 group info kde-desktop | \
 dnf5 clean all && \
 rm -rf /var/cache/dnf/*
 
-dnf5 config-manager --set-enabled fedora-cisco-openh264 && \
-  dnf5 makecache
-
 dnf5 install -y \
+  --enable-repo=fedora-cisco-openh264 \
   openh264 \
   mozilla-openh264 \
   gstreamer1-plugin-openh264
