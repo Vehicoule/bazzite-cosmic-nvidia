@@ -7,9 +7,9 @@ dnf5 group info kde-desktop | \
         /^\(Default\|Optional\) packages\s*:/q  # Quit if we hit Default/Optional header
         s/^.*:[[:space:]]*//p
     }' | \
-    xargs rpm-ostree override remove
+    xargs dnf5 remove -y
 
-#rpm-ostree override remove plasma-desktop \
+#dnf5 remove plasma-desktop \
 #               xwaylandvideobridge \
 #               sunshine \
 #               kdeconnect \
@@ -31,7 +31,7 @@ dnf5 clean all && \
 rm -rf /var/cache/dnf/*
 
 
-rpm-ostree override install @cosmic-desktop-environment \
+dnf5 install install @cosmic-desktop-environment \
                 neovim \
                 ncdu \
                 NetworkManager-tui \
@@ -53,8 +53,11 @@ dnf5 clean all && \
 rm -rf /var/cache/dnf/*
 
 mkdir -p /nix && \
-  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
-  chmod a+rx /nix/determinate-nix-installer.sh
+  setenforce Permissive && \
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install && \
+#  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
+#  chmod a+rx /nix/determinate-nix-installer.sh && \
+  setenforce Enforcing
 
 systemctl disable display-manager
 systemctl disable gdm || true
