@@ -22,7 +22,6 @@ rpm-ostree override remove plasma-desktop \
                nheko \
                rhythmbox \
                okular \
-               kde-desktop-sharing \
                kwallet* \
                plasma-* \
                kscreen* \
