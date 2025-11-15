@@ -31,8 +31,12 @@ dnf5 clean all && \
 rm -rf /var/cache/dnf/*
 
 dnf5 config-manager --set-enabled fedora-cisco-openh264 && \
-  dnf5 install -y gstreamer1-plugin-openh264 \
-                  mozilla-openh264
+  dnf5 makecache
+
+dnf5 install -y \
+  openh264 \
+  mozilla-openh264 \
+  gstreamer1-plugin-openh264
 
 dnf5 install -y cosmic-desktop \
 				cosmic-desktop-apps \
